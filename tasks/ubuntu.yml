@@ -1,0 +1,21 @@
+---
+- name: install mariadb
+  become: true
+  apt:
+    update_cache: true
+    name: ["mariadb-server", "mariadb-client"]
+    state: present
+- name: install connector when python 3
+  become: true
+  apt:
+    update_cache: true
+    name: python3-mysqldb
+    state: present
+  when: ansible_python.version.major == 3
+- name: install connector when python 2
+  become: true
+  apt:
+    update_cache: true
+    name: python-mysqldb
+    state: present
+  when: ansible_python.version.major == 2

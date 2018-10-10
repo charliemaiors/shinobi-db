@@ -1,0 +1,7 @@
+---
+- name: Install Maria DB server
+  become: true
+  yum:
+    update_cache: true
+    name: ["mariadb-server", "MySQL-python"]
+    state: present

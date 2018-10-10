@@ -1,0 +1,12 @@
+---
+- name: Install mariadb archlinux
+  become: true
+  pacman:
+    update_cache: true
+    name: mariadb
+    state: present
+- name: Install mysql python
+  become: true
+  pip:
+    name: MySQL-python
+    state: latest

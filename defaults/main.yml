@@ -1,0 +1,4 @@
+---
+random_pass: "{{ lookup('password', '/dev/null length=15 chars=ascii_letters') }}"
+shinobi_user: "shinobi"
+dbhash: "md5"

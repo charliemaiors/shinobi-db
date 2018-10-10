@@ -1,0 +1,43 @@
+---
+- name: set shinobi-pass fact
+  set_fact:
+    shinobi_pass: "{{ random_pass }}"
+  when: shinobi_pass is not defined
+- name: print shinobi_pass
+  debug:
+    msg: "{{ shinobi_pass }}"
+- name: setup database for shinobi when ubuntu
+  include_tasks: shinobi_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+- name: setup database for shinobi when centos
+  include_tasks: shinobi_centos.yml
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+- name: setup database for shinobi when archlinux
+  include_tasks: shinobi_arch.yml
+  when: ansible_distribution == 'Archlinux'
+- name: compile my.cnf template
+  template:
+    dest: "{{ ansible_env.HOME }}/.my.cnf"
+    src: user-my.cnf.j2
+- name: Copy all sql scripts
+  copy:
+    dest: "{{ ansible_env.HOME }}/tables.sql"
+    src: "tables.sql"
+- name: generate user pass when is not defined
+  set_fact:
+    user_pass: "{{ random_pass }}"
+  when: user_pass is not defined
+- name: print user_pass
+  debug:
+    msg: "{{ user_pass }}"
+- name: template default data
+  template:
+    dest: "{{ ansible_env.HOME }}/default_data.sql"
+    src: default_data.sql.j2
+- name: execute all sql scripts
+  shell: "mysql --host=localhost --user={{ shinobi_user }} --password={{ shinobi_pass }} --database=ccio < {{ ansible_env.HOME }}/{{ item }}"
+  args:
+    executable: /bin/bash
+  with_items:
+    - tables.sql
+    - default_data.sql

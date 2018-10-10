@@ -1,0 +1,17 @@
+---
+- name: get random pass for root password
+  set_fact:
+    mysql_root: "{{ random_pass }}"
+  when: mysql_root is not defined
+- name: Print root password
+  debug:
+    msg: "{{ mysql_root}}"
+- name: Install mariadb ubuntu
+  include_tasks: installation_ubuntu.yml
+  when: ansible_distribution == 'Ubuntu'
+- name: Install mariadb centos
+  include_tasks: installation_centos.yml
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+- name: Install mariadb archlinux
+  include_tasks: installation_arch.yml
+  when: ansible_distribution == 'Archlinux'

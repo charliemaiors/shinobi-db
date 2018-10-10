@@ -1,0 +1,21 @@
+---
+- name: create shinobi db centos
+  mysql_db:
+    name: ccio
+    state: present
+    login_user: root
+    login_password: "{{ mysql_root }}"
+- name: create shinobi user centos
+  mysql_user:
+    name: "{{ shinobi_user }}"
+    login_password: "{{ mysql_root }}"
+    state: present
+    login_user: root
+    password: "{{ shinobi_pass }}"
+    priv: "ccio.*:ALL,GRANT"
+    host: "{{ item }}"
+  with_items:
+    - "%"
+    - 127.0.0.1
+    - ::1
+    - localhost
