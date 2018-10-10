@@ -1,6 +1,8 @@
 Shinobi DB
 =========
 
+[![Build Status](https://travis-ci.org/charliemaiors/shinobi-db.svg?branch=master)](https://travis-ci.org/charliemaiors/shinobi-db)
+
 This role will deploy Mariadb, configure it, and create and populate the schema for [Shinobi CCTV](https://shinobi.video/).
 Ubuntu 18.04/16.04, CentOS 7 and Archlinux are supported. 
 
@@ -44,9 +46,9 @@ Example Playbook
 This role could be used defining only user mail, leave as default the hashing algorithm and random generation for all passwords.
 
 ```yaml
-    - hosts: servers
-      roles:
-         - { role: shinobi-db, user_mail: "ccio@m03.ca" }
+- hosts: servers
+  roles:
+      - { role: shinobi-db, user_mail: "ccio@m03.ca" }
 ```
 
 Or you could define your own passwords and select a proper hash algorithm.
