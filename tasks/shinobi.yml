@@ -38,7 +38,7 @@
   mysql_db:
     state: import
     name: ccio
-    target: "{{ item }}"
+    target: "{{ ansible_env.HOME }}/{{ item }}"
   with_items:
     - tables.sql
     - default_data.sql
