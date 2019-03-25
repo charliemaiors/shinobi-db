@@ -9,4 +9,4 @@
   become: true
   pip:
     name: MySQL-python
-    state: latest
+    state: present

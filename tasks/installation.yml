@@ -5,7 +5,7 @@
   when: mysql_root is not defined
 - name: Print root password
   debug:
-    msg: "{{ mysql_root}}"
+    msg: "{{ mysql_root }}"
 - name: Install mariadb ubuntu
   include_tasks: installation_ubuntu.yml
   when: ansible_distribution == 'Ubuntu'
