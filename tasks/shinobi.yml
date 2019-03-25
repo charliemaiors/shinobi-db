@@ -35,7 +35,10 @@
     dest: "{{ ansible_env.HOME }}/default_data.sql"
     src: default_data.sql.j2
 - name: execute all sql scripts
-  command: "mysql --host=localhost --user={{ shinobi_user }} --password={{ shinobi_pass }} --database=ccio < {{ ansible_env.HOME }}/{{ item }}"
+  mysql_db:
+    state: import
+    name: ccio
+    target: "{{ item }}"
   with_items:
     - tables.sql
     - default_data.sql
