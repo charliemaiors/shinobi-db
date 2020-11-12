@@ -55,6 +55,7 @@
   template:
     dest: /etc/mysql/mariadb.conf.d/50-server.cnf
     src: my-ubuntu.cnf.j2
+    mode: u+rw
 - name: restart mariadb service
   become: true
   systemd:

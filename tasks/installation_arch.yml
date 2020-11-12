@@ -49,6 +49,7 @@
   template:
     dest: /etc/mysql/my.cnf
     src: my.cnf.j2
+    mode: u+rw
 - name: restart mariadb service
   become: true
   systemd:

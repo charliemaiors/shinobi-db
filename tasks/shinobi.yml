@@ -19,10 +19,12 @@
   template:
     dest: "{{ ansible_env.HOME }}/.my.cnf"
     src: user-my.cnf.j2
+    mode: u+rw
 - name: Copy all sql scripts
   copy:
     dest: "{{ ansible_env.HOME }}/tables.sql"
     src: "tables.sql"
+    mode: u+rw
 - name: generate user pass when is not defined
   set_fact:
     user_pass: "{{ random_pass }}"
@@ -34,6 +36,7 @@
   template:
     dest: "{{ ansible_env.HOME }}/default_data.sql"
     src: default_data.sql.j2
+    mode: u+rw
 - name: execute all sql scripts
   mysql_db:
     state: import
