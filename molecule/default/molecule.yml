@@ -6,21 +6,6 @@ driver:
 lint:
   name: yamllint
 platforms:
-  - name: ubuntu16
-    image: cmaiorano/ubuntu-systemd-nodejs:xenial
-    command: "/sbin/init"
-    privileged: true
-    pre_build_image: true
-    pull: true
-    capabilities:
-      - SYS_ADMIN
-    security_opts:
-      - seccomp=unconfined
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    tmpfs:
-      - /tmp
-      - /run
   - name: ubuntu18
     image: cmaiorano/ubuntu-systemd-nodejs:bionic
     command: "/sbin/init"
